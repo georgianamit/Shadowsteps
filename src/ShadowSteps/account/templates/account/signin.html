@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+    <div class="container-fluid">
+      <div class="row">
+        <main class="main-content col-lg-12 p-0">
+          {% include "navbar.html" %}
+          <!-- Default Light Table -->
+            <div class = "row mx-4" style='margin-top:150px; margin-bottom:125px'>
+              <div class = "col-lg-4 offset-lg-4">
+                <div class="card card-small mb-4">
+                  <div class="card-header border-bottom">
+                    <h3 class="m-0 text-center">Sign In</h3>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-4">
+                      <form>
+                        <div class="input-group mb-3">
+                          <div class="input-group input-group-seamless">
+                            <span class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">person</i>
+                              </span>
+                            </span>
+                            <input type="text" class="form-control" id="form1-username" placeholder="Username" value="design.revision"> </div>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group input-group-seamless">
+                            <input type="password" class="form-control" id="form2-password" placeholder="Password" value="mySuperSecretPa$$word">
+                            <span class="input-group-append">
+                              <span class="input-group-text">
+                                <i class="material-icons">lock</i>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <input type="submit" class="mb-2 btn btn-outline-primary mr-2" value="Log In"/>
+                        </div>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <!-- End Default Light Table -->
+          {% include "footer.html" %}
+        </main>
+      </div>
+    </div>
+{% endblock content %}
