@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to = "avatars/", blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     specialization = models.CharField(max_length=50,blank= True)
     bio = models.TextField(max_length=500, blank=True)
