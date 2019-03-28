@@ -14,17 +14,17 @@
         <div class="col-lg-4">
           <div class="card card-small mb-4 pt-3">
             <div class="card-header border-bottom text-center">
-              <div class="mb-3 mx-auto">
-                <img class="rounded-circle" src="{% static 'general/images/avatars/0.jpg' %}" alt="User Avatar" width="110"> </div>
-              <h4 class="mb-0">{{object.user.username}}</h4>
-              <span class="text-muted d-block mb-2">Project Manager</span>
-              <button type="button" class="mb-2 btn btn-sm btn-pill btn-outline-primary mr-2">
-                <i class="material-icons mr-1">person_add</i>Follow</button>
+              <div class="mb-1 mx-auto">
+                <img class="rounded-circle" src="{% static 'general/images/avatars/0.jpg' %}" alt="User Avatar" width="200"> </div>
+                <h4 class="mb-0">{{ user.username}}</h4>
+                <span class="text-muted d-block mb-2">Project Manager</span>
+                <button type="button" class="mb-1 btn btn-sm btn-pill btn-outline-primary mr-2">
+                  <i class="material-icons mr-1">person_add</i>Follow</button>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item p-4">
                 <strong class="text-muted d-block mb-2">Bio</strong>
-                <span> {{ object.bio}} </span>
+                <span> {{ user.profile.bio }} </span>
               </li>
             </ul>
           </div>
@@ -64,7 +64,6 @@
               </li>
             </ul>
           </div>
-          
         </div>
       </div>
       <!-- End Default Light Table -->
