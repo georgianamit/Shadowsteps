@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid" style="min-height: 100%; margin-bottom: -70px;>
       <div class="row">
         <main class="main-content col-lg-12 p-0">
           {% include "navbar.html" %}
@@ -69,9 +69,8 @@
                 </div>
               </div>
             </div>
-          <!-- End Default Light Table -->
-          {% include "footer.html" %}
         </main>
       </div>
     </div>
+    {% include "footer.html" %}
 {% endblock content %}
