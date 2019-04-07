@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, TemplateView
 from account.models import Profile
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from account.forms import SignInForm, SignUpForm
+from account.forms import SignInForm, SignUpForm, AvatarUploadForm
 from django.http import HttpResponseRedirect
 
 # Create your views here.
@@ -43,7 +43,7 @@ def signUpView(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("account:profile", slug = username_)
+            return redirect("account:profile", slug = username)
     else:
         form = SignUpForm()
     
@@ -60,8 +60,17 @@ def signOutView(request):
     return redirect("account:signin")
 
 def settingView(request):
+    if(request.method == "POST"):
+        image_form = AvatarUploadForm(request.POST, request.FILES)
+        if image_form.is_valid():
+            image_form.save()
+            return redirect("account:setting")
+    else:
+        image_form = AvatarUploadForm()
+
     context = {
         'navbar': False,
+        'image_form':image_form,
     }
 
     return render(request, "account/settings.html", context)
