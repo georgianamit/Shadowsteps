@@ -5,7 +5,7 @@
 {% endblock css %}
 {% block content %}
 
-<div class="container-fluid style="min-height: 100%; margin-bottom: -70px;">
+<div class="container-fluid" style="min-height: 100%; margin-bottom: -70px;">
   <div class="row">
     <main class="main-content col-lg-12 col-md-12 col-sm-12 p-0">
       {% include "navbar.html" %}
@@ -15,7 +15,7 @@
           <div class="card card-small mb-4 pt-3">
             <div class="card-header border-bottom text-center">
               <div class="mb-1 mx-auto">
-                <img class="rounded-circle" src="{% static 'general/images/avatars/0.jpg' %}" alt="User Avatar" width="200"> </div>
+                <img class="rounded-circle" src="{{request.user.profile.avatar.url}}" alt="User Avatar" width="200"> </div>
                 <h4 class="mb-0">{{ user.first_name }} {{user.last_name}} </h4>
                 <span class="text-muted d-block mb-2">@{{ user.username }}</span>
                 <button type="button" class="mb-1 btn btn-sm btn-pill btn-outline-primary mr-2">

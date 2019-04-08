@@ -20,7 +20,6 @@ def profileView(request, slug):
     else:
         return render(request,"account/profile.html", context)
 
-
 def signInView(request):
     form = SignInForm(None or request.POST)
     if form.is_valid():
@@ -63,7 +62,9 @@ def settingView(request):
     if(request.method == "POST"):
         image_form = AvatarUploadForm(request.POST, request.FILES)
         if image_form.is_valid():
-            image_form.save()
+            profile = Profile.objects.get(user=request.user)
+            profile.image=image_form.cleaned_data['avatar']
+            profile.save()
             return redirect("account:setting")
     else:
         image_form = AvatarUploadForm()
