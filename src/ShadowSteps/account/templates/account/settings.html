@@ -32,7 +32,7 @@
             <ul class="nav flex-column">
               <li class="nav-item ">
                 <a class="nav-link active" data-toggle="tab" href="#personal">
-                  <i class="material-icons">person</i>
+                  <i class="fa fa-user fa-5x"></i>
                   <span>Personal</span>
                 </a>
               </li>
@@ -81,29 +81,61 @@
                 <!-- Default Light Table -->
                 <div class="row">
                   <div class="col-lg-4">
-                    <div class="card card-small mb-4 pt-3">
-                      <div class="card-header border-bottom text-center">
+                    <div class="card card-small mb-4 pt-3 text-center">
                         <div class="mb-3 mx-auto">
-                          <img class="rounded-circle" src=" {{request.user.profile.avatar.url}} " alt="User Avatar" width="110"> </div>
+                          <img class="rounded-circle" src=" {{request.user.profile.avatar.url}} " alt="User Avatar" width="200" height="200"> </div>
                           <form method="post" action="" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ image_form.avatar }}
                             <input type="submit" name="upload">
                           </form>
-                      </div>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-4">
-                          <strong class="text-muted d-block mb-2">Bio</strong>
-                          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</span>
-                        </li>
-                      </ul>
                     </div>
                   </div>
                   <div class="col-lg-8">
                     <div class="card card-small mb-4">
-                      <div class="card-header border-bottom">
-                        <h6 class="m-0">Account Details</h6>
-                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                          <div class="row">
+                            <div class="col">
+                              <form>
+                                  <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                      <label for="feDescription">Bio</label>
+                                      <textarea class="form-control" name="feDescription" rows="3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
+                                    </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                      <label for="feDescription">Motto</label>
+                                      <textarea class="form-control" name="feDescription" rows="2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
+                                    </div>
+                                  </div>
+                                  <button type="submit" class="btn btn-accent">Update</button>
+                              </form>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    {% comment %} <div class="card card-small mb-4 pt-3">
+                      <form>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="feFirstName">First Name</label>
+                            <input type="text" class="form-control" id="feFirstName" placeholder="First Name" value="Sierra"> </div>
+                          <div class="form-group col-md-6">
+                            <label for="feLastName">Last Name</label>
+                            <input type="text" class="form-control" id="feLastName" placeholder="Last Name" value="Brooks"> </div>
+                        </div>
+                      </form>
+                    </div> {% endcomment %}
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="card card-small mb-4">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
                           <div class="row">
@@ -122,8 +154,8 @@
                                     <label for="feEmailAddress">Email</label>
                                     <input type="email" class="form-control" id="feEmailAddress" placeholder="Email" value="sierra@example.com"> </div>
                                   <div class="form-group col-md-6">
-                                    <label for="fePassword">Password</label>
-                                    <input type="password" class="form-control" id="fePassword" placeholder="Password"> </div>
+                                    <label for="fePassword">Phone No.</label>
+                                    <input type="password" class="form-control" id="fePassword" placeholder="Phone No."> </div>
                                 </div>
                                 <div class="form-group">
                                   <label for="feInputAddress">Address</label>
@@ -143,12 +175,6 @@
                                     <label for="inputZip">Zip</label>
                                     <input type="text" class="form-control" id="inputZip"> </div>
                                 </div>
-                                <div class="form-row">
-                                  <div class="form-group col-md-12">
-                                    <label for="feDescription">Description</label>
-                                    <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
-                                  </div>
-                                </div>
                                 <button type="submit" class="btn btn-accent">Update Account</button>
                               </form>
                             </div>
@@ -161,20 +187,64 @@
                 <!-- End Default Light Table -->
               </div>
               <div id="education" class="tab-pane fade">
-                <h3>education</h3>
-                <p>Some content in menu 1.</p>
+                <!-- Page Header -->
+                <div class="page-header row no-gutters py-4">
+                  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                    <span class="text-uppercase page-subtitle">Settings</span>
+                    <h3 class="page-title">Education</h3>
+                  </div>
+                </div>
+                <!-- End Page Header -->
+                <!-- Default Light Table -->
+                <div class="row">
+                  some
+                </div>
+                <!-- End Default Light Table -->
               </div>
               <div id="professional" class="tab-pane fade">
-                <h3>professional</h3>
-                <p>Some content in menu 2.</p>
+                <!-- Page Header -->
+                <div class="page-header row no-gutters py-4">
+                  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                    <span class="text-uppercase page-subtitle">Settings</span>
+                    <h3 class="page-title">Professional</h3>
+                  </div>
+                </div>
+                <!-- End Page Header -->
+                <!-- Default Light Table -->
+                <div class="row">
+                  some
+                </div>
+                <!-- End Default Light Table -->
               </div>
               <div id="account" class="tab-pane fade">
-                <h3>account</h3>
-                <p>Some content in menu 2.</p>
+                <!-- Page Header -->
+                <div class="page-header row no-gutters py-4">
+                  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                    <span class="text-uppercase page-subtitle">Settings</span>
+                    <h3 class="page-title">Account</h3>
+                  </div>
+                </div>
+                <!-- End Page Header -->
+                <!-- Default Light Table -->
+                <div class="row">
+                  some
+                </div>
+                <!-- End Default Light Table -->
               </div>
-               <div id="password" class="tab-pane fade">
-                <h3>password</h3>
-                <p>Some content in menu 2.</p>
+              <div id="password" class="tab-pane fade">
+                <!-- Page Header -->
+                <div class="page-header row no-gutters py-4">
+                  <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                    <span class="text-uppercase page-subtitle">Settings</span>
+                    <h3 class="page-title">Password</h3>
+                  </div>
+                </div>
+                <!-- End Page Header -->
+                <!-- Default Light Table -->
+                <div class="row">
+                  some
+                </div>
+                <!-- End Default Light Table -->
               </div>
             </div>
           </div>

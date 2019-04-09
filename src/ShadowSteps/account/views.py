@@ -26,7 +26,6 @@ def signInView(request):
         username_ = form.cleaned_data.get('username')
         user_obj = User.objects.filter(username__iexact=username_).first()
         login(request, user_obj)
-        print(user_obj)
         return redirect("account:profile", slug = username_)
     
     context = {
@@ -63,7 +62,7 @@ def settingView(request):
         image_form = AvatarUploadForm(request.POST, request.FILES)
         if image_form.is_valid():
             profile = Profile.objects.get(user=request.user)
-            profile.image=image_form.cleaned_data['avatar']
+            profile.avatar=image_form.cleaned_data['avatar']
             profile.save()
             return redirect("account:setting")
     else:
