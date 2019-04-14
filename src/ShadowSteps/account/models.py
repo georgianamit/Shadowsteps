@@ -9,8 +9,12 @@ class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name="profile")
     avatar = models.ImageField(upload_to = "avatars/", default="avatars/default-avatar.png")
     dob = models.DateField(blank=True, null=True)
-    specialization = models.CharField(max_length=50,blank= True)
+    phone_no = models.CharField(max_length=10, blank=True)
+    gender = models.CharField(max_length=30,blank= True)
+    website = models.CharField(max_length=30, blank= True)
+    motto = models.CharField(max_length=150, blank=True)
     bio = models.TextField(max_length=500, blank=True)
+    specialization = models.CharField(max_length=50,blank= True)
 
 
     def __str__(self):

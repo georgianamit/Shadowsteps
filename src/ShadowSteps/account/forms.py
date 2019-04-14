@@ -91,3 +91,25 @@ class AvatarUploadForm(forms.ModelForm):
         fields=(
             'avatar',
         )
+
+class BioSettingForm(forms.ModelForm):
+    bio = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"Bio"
+        }
+    ))
+    motto = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-email",
+            'placeholder':"Motto"
+        }
+    ))
+    class Meta:
+        model = Profile
+        fields=(
+            'bio',
+            'motto',
+        )

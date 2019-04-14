@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, TemplateView
 from account.models import Profile
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from account.forms import SignInForm, SignUpForm, AvatarUploadForm
+from account.forms import SignInForm, SignUpForm, AvatarUploadForm, BioSettingForm
 from django.http import HttpResponseRedirect
 
 # Create your views here.
@@ -59,18 +59,33 @@ def signOutView(request):
 
 def settingView(request):
     if(request.method == "POST"):
-        image_form = AvatarUploadForm(request.POST, request.FILES)
-        if image_form.is_valid():
-            profile = Profile.objects.get(user=request.user)
-            profile.avatar=image_form.cleaned_data['avatar']
-            profile.save()
-            return redirect("account:setting")
+        if 'upload-avatar' in request.POST:
+            image_form = AvatarUploadForm(request.POST, request.FILES)
+            if image_form.is_valid():
+                profile = Profile.objects.get(user=request.user)
+                profile.avatar=image_form.cleaned_data['avatar']
+                profile.save()
+                return redirect("account:setting")
+            
+        if 'update-bio' in request.POST:
+            bio_form = BioSettingForm(request.POST)
+            if bio_form.is_valid():
+                profile = Profile.objects.get(user= request.user)
+                profile.bio = bio_form.cleaned_data['bio']
+                profile.motto = bio_form.cleaned_data['motto']
+                profile.save()
+                return redirect("account:setting")
     else:
         image_form = AvatarUploadForm()
+        bio_form = BioSettingForm()
 
     context = {
         'navbar': False,
         'image_form':image_form,
+        'bio_form':bio_form,
+        'day_range': range(1,32),
+        'month_range': range(1,13),
+        'year_range': range(2010,1950,-1),
     }
 
     return render(request, "account/settings.html", context)

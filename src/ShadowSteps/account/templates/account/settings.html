@@ -87,7 +87,7 @@
                           <form method="post" action="" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ image_form.avatar }}
-                            <input type="submit" name="upload">
+                            <input type="submit" name="upload-avatar" value="Upload">
                           </form>
                     </div>
                   </div>
@@ -97,20 +97,21 @@
                         <li class="list-group-item p-3">
                           <div class="row">
                             <div class="col">
-                              <form>
+                              <form method="post" action="">
+                              {% csrf_token %}
                                   <div class="form-row">
                                     <div class="form-group col-md-12">
                                       <label for="feDescription">Bio</label>
-                                      <textarea class="form-control" name="feDescription" rows="3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
+                                      {{ bio_form.bio}}
                                     </div>
                                   </div>
                                   <div class="form-row">
                                     <div class="form-group col-md-12">
                                       <label for="feDescription">Motto</label>
-                                      <textarea class="form-control" name="feDescription" rows="2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
+                                      {{ bio_form.motto}}
                                     </div>
                                   </div>
-                                  <button type="submit" class="btn btn-accent">Update</button>
+                                  <button type="submit"  name="update-bio" class="btn btn-accent">Update</button>
                               </form>
                             </div>
                           </div>
@@ -159,50 +160,46 @@
                                 </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-6">
+                                    <label for="feEmailAddress">Gender</label>
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <select id="feInputState" class="form-control">
+                                          <option selected>Male</option>
+                                          <option>Female</option>
+                                          <option>Others</option>
+                                        </select>
+                                      </div>                                     
+                                    </div>                                    
+                                  </div>                                
+                                  <div class="form-group col-md-6">
                                     <label for="feInputState">Date Of Birth</label>
                                     <div class="form-row">
                                       <div class="form-group col-md-4">
                                         <select id="feInputState" class="form-control">
-                                          <option selected>Choose...</option>
-                                          <option>...</option>
+                                          <option selected>Day</option>
+                                          {% for i in day_range %}
+                                            <option> {{i}} </option>
+                                          {% endfor %}  
                                         </select>
                                       </div>
                                       <div class="form-group col-md-4">
                                         <select id="feInputState" class="form-control">
-                                          <option selected>Choose...</option>
-                                          <option>...</option>
+                                          <option selected>Month</option>
+                                          {% for i in month_range %}
+                                            <option> {{i}} </option>
+                                          {% endfor %} 
                                         </select>
                                       </div>
                                       <div class="form-group col-md-4">
                                         <select id="feInputState" class="form-control">
-                                          <option selected>Choose...</option>
-                                          <option>...</option>
+                                          <option selected>Year</option>
+                                          {% for i in year_range %}
+                                            <option> {{i}} </option>
+                                          {% endfor %} 
                                         </select>
                                       </div>                                      
                                     </div>
                                   </div>
-                                  <div class="form-group col-md-6">
-                                    <label for="feEmailAddress">Gender</label>
-                                    <div class="form-row">
-                                      <div class="form-group col-md-4">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Choose...</option>
-                                          <option>...</option>
-                                        </select>
-                                      </div>
-                                      <div class="form-group col-md-4">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Choose...</option>
-                                          <option>...</option>
-                                        </select>
-                                      </div>
-                                      <div class="form-group col-md-4">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Choose...</option>
-                                          <option>...</option>
-                                        </select>
-                                      </div>                                      
-                                    </div>                                    
                                 </div>
                                 <div class="form-group">
                                   <label for="feInputAddress">Address</label>
