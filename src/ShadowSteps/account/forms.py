@@ -97,14 +97,16 @@ class BioSettingForm(forms.ModelForm):
         attrs={
             'class':"form-control",
             'id':"form1-username",
-            'placeholder':"Bio"
+            'placeholder':"Bio",
+            'rows':3,
         }
     ))
     motto = forms.CharField(widget=forms.TextInput(
         attrs={
             'class':"form-control",
             'id':"form1-email",
-            'placeholder':"Motto"
+            'placeholder':"Motto",
+            'rows':2
         }
     ))
     class Meta:
