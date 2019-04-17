@@ -64,11 +64,11 @@
 					<span class="d-none d-md-inline-block"> {{request.user.username}} </span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-small">
-					<a class="dropdown-item" href="user-profile-lite.html">
+					<a class="dropdown-item" href=" {% url 'account:profile' slug=request.user.username %} ">
 						<i class="material-icons">&#xE7FD;</i> Profile</a>
-					<a class="dropdown-item" href="components-blog-posts.html">
+					<a class="dropdown-item" href="#">
 						<i class="material-icons">vertical_split</i> Projects</a>
-					<a class="dropdown-item" href="add-new-post.html">
+					<a class="dropdown-item" href=" {% url 'account:setting' %} ">
 						<i class="material-icons">note_add</i> Settings</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item text-danger" href="{% url 'account:signout' %}">
@@ -77,12 +77,12 @@
 			</li>
 			{% else %}
 			<li class="nav-item ">
-				<a class="text-center mb-2 btn btn-outline-primary mr-2 my-auto" href="#" role="button">
+				<a class="text-center mb-2 btn btn-outline-primary mr-2 my-auto" href=" {% url 'account:signin'%} " role="button">
 				Sign In
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="text-center mb-2 btn btn-outline-primary mr-2 my-auto" href="#" role="button">
+				<a class="text-center mb-2 btn btn-outline-primary mr-2 my-auto" href=" {% url 'account:signup'%} " role="button">
 				Sign Up
 				</a>
 			</li>

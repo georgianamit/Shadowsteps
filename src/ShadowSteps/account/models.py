@@ -15,7 +15,11 @@ class Profile(models.Model):
     motto = models.CharField(max_length=150, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     specialization = models.CharField(max_length=50,blank= True)
-
+    
+    address = models.CharField(max_length=128, blank=True)
+    city = models.CharField(max_length=64, blank=True)
+    state = models.CharField(max_length=64, blank=True)
+    zip_code = models.CharField(max_length=5, blank=True)
 
     def __str__(self):
         return self.user.username

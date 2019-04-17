@@ -115,3 +115,69 @@ class BioSettingForm(forms.ModelForm):
             'bio',
             'motto',
         )
+
+class PersonalProfileSettingForm(forms.ModelForm):
+    phone_no = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"Phone No.",
+        }
+    ))
+    address = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"Address",
+        }
+    ))
+    city = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"City",
+        }
+    ))
+    state = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"State",
+        }
+    ))
+    zip_code = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"Zip Code",
+        }
+    ))
+    class Meta:
+        model = Profile
+        fields = ("phone_no", "address", "state", "city", "zip_code")
+
+class PersonalUserSettingForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"First Name",
+        }
+    ))
+    last_name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"Last Name",
+        }
+    ))
+    email = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-username",
+            'placeholder':"Email",
+        }
+    ))
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email")
