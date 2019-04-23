@@ -171,7 +171,7 @@ class PersonalUserSettingForm(forms.ModelForm):
             'placeholder':"Last Name",
         }
     ))
-    email = forms.CharField(widget=forms.TextInput(
+    email = forms.EmailField(widget=forms.TextInput(
         attrs={
             'class':"form-control",
             'id':"form1-username",
