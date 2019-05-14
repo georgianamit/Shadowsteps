@@ -164,41 +164,14 @@
                                     <label for="feEmailAddress">Gender</label>
                                     <div class="form-row">
                                       <div class="form-group col-md-6">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Male</option>
-                                          <option>Female</option>
-                                          <option>Others</option>
-                                        </select>
+                                        {{ personal_profile_form.gender }}
                                       </div>                                     
                                     </div>                                    
                                   </div>                                
                                   <div class="form-group col-md-6">
                                     <label for="feInputState">Date Of Birth</label>
                                     <div class="form-row">
-                                      <div class="form-group col-md-4">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Day</option>
-                                          {% for i in day_range %}
-                                            <option> {{i}} </option>
-                                          {% endfor %}  
-                                        </select>
-                                      </div>
-                                      <div class="form-group col-md-4">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Month</option>
-                                          {% for i in month_range %}
-                                            <option> {{i}} </option>
-                                          {% endfor %} 
-                                        </select>
-                                      </div>
-                                      <div class="form-group col-md-4">
-                                        <select id="feInputState" class="form-control">
-                                          <option selected>Year</option>
-                                          {% for i in year_range %}
-                                            <option> {{i}} </option>
-                                          {% endfor %} 
-                                        </select>
-                                      </div>                                      
+                                     {{ personal_profile_form.dob}}
                                     </div>
                                   </div>
                                 </div>
@@ -238,7 +211,102 @@
                 <!-- End Page Header -->
                 <!-- Default Light Table -->
                 <div class="row">
-                  some
+                  <div class="col-lg-10 offset-lg-1">
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">High School</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="feFirstName">School Name</label>
+                              {{ hs_form.high_school }}</div>
+                            <div class="form-group col-md-3">
+                              <label for="feLastName">Year</label>
+                              {{ hs_form.hs_year }}</div>
+                            <div class="form-group col-md-3">
+                              <label for="feLastName">percentage</label>
+                              {{ hs_form.hs_percentage }}</div>
+                          </div>
+                          <div>
+                            <button type="submit"  name="update-high-school" class="btn btn-accent">Update</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Graduation</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="feFirstName">College/Institude</label>
+                              {{ g_form.g_college }}</div>
+                          </div>
+                          <div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="feLastName">Degree</label>
+                              {{ g_form.g_degree }}</div>
+                            <div class="form-group col-md-2">
+                              <label for="feLastName">Branch</label>
+                              {{ g_form.g_branch }}</div>
+                            <div class="form-group col-md-2">
+                              <label for="feLastName">Graduation Year</label>
+                              {{ g_form.g_year }}</div>
+                            <div class="form-group col-md-2">
+                              <label for="feLastName">CGPA</label>
+                              {{ g_form.g_cgpa }}</div>
+                          </div>
+                            <button type="submit"  name="update-graduation" class="btn btn-accent">Update</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Post Graduation</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="feFirstName">College/Institude</label>
+                              {{ pg_form.pg_college }}</div>
+                          </div>
+                          <div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="feLastName">Degree</label>
+                              {{ pg_form.pg_degree }}</div>
+                            <div class="form-group col-md-2">
+                              <label for="feLastName">Branch</label>
+                              {{ pg_form.pg_branch }}</div>
+                            <div class="form-group col-md-2">
+                              <label for="feLastName">Graduation Year</label>
+                              {{ pg_form.pg_year }}</div>
+                            <div class="form-group col-md-2">
+                              <label for="feLastName">percentage/CGPA</label>
+                              {{ pg_form.pg_cgpa }}</div>
+                          </div>
+                            <button type="submit"  name="update-graduation" class="btn btn-accent">Update</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>                
+                  </div>
                 </div>
                 <!-- End Default Light Table -->
               </div>

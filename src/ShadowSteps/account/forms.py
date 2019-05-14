@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
+import datetime
 
 class SignUpForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(
@@ -93,7 +94,7 @@ class AvatarUploadForm(forms.ModelForm):
         )
 
 class BioSettingForm(forms.ModelForm):
-    bio = forms.CharField(widget=forms.TextInput(
+    bio = forms.CharField(widget=forms.Textarea(
         attrs={
             'class':"form-control",
             'id':"form1-username",
@@ -117,6 +118,24 @@ class BioSettingForm(forms.ModelForm):
         )
 
 class PersonalProfileSettingForm(forms.ModelForm):
+    GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+    )
+    dob = forms.DateField(widget=forms.SelectDateWidget(
+        years=range(1980, datetime.date.today().year+1),
+        attrs={
+            'class':"form-control",
+        }
+    ))
+    gender = forms.ChoiceField(
+        choices=GENDER_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
     phone_no = forms.CharField(widget=forms.TextInput(
         attrs={
             'class':"form-control",
@@ -154,7 +173,7 @@ class PersonalProfileSettingForm(forms.ModelForm):
     ))
     class Meta:
         model = Profile
-        fields = ("phone_no", "address", "state", "city", "zip_code")
+        fields = ("gender", "dob", "phone_no", "address", "state", "city", "zip_code")
 
 class PersonalUserSettingForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(
@@ -181,3 +200,111 @@ class PersonalUserSettingForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "email")
+
+class HighSchoolSettingForm(forms.ModelForm):
+    high_school = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-high-school",
+            'placeholder':"High School Name",
+        }
+    ))
+    hs_year = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-year",
+            'placeholder':"Year",
+        }
+    ))
+    hs_percentage = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"Percentage",
+        }
+    ))
+
+    class Meta:
+        model=Profile
+        fields=("high_school", "hs_year","hs_percentage")
+
+class GraduationSettingForm(forms.ModelForm):
+    g_college = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-high-school",
+            'placeholder':"College/Institude Name",
+        }
+    ))
+    g_degree = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-year",
+            'placeholder':"Degree",
+        }
+    ))
+    g_branch = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"Branch",
+        }
+    ))
+    g_year = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"Graduation Year",
+        }
+    ))
+    g_cgpa = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"CGPA",
+        }
+    )) 
+
+    class Meta:
+        model=Profile
+        fields=("g_college", "g_degree", "g_branch", "g_year", "g_cgpa")
+
+class PostGraduationSettingForm(forms.ModelForm):
+    pg_college = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-high-school",
+            'placeholder':"College/Institude Name",
+        }
+    ))
+    pg_degree = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-year",
+            'placeholder':"Degree",
+        }
+    ))
+    pg_branch = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"Branch",
+        }
+    ))
+    pg_year = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"Graduation Year",
+        }
+    ))
+    pg_cgpa = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class':"form-control",
+            'id':"form1-hs-percentage",
+            'placeholder':"CGPA",
+        }
+    ))
+    class Meta:
+        model=Profile
+        fields=("pg_college", "pg_degree", "pg_branch", "pg_year", "pg_cgpa")
