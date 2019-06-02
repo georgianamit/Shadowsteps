@@ -5,14 +5,14 @@
 		{% if navbar %}
 			<a class="navbar-brand w-20 mr-auto" href="#" style="line-height: 25px;">
 				<div class="d-table m-auto">
-					<img id="main-logo" class="d-inline-block align-top mr-2 ml-2" style="max-width: 25px;" src="{% static 'general/images/shards-dashboards-logo.svg' %}" alt="ShadowSteps">
+					<img id="main-logo" class="d-inline-block align-top mr-1 ml-3" style="max-width: 25px;" src="{% static 'general/images/shards-dashboards-logo.svg' %}" alt="ShadowSteps">
 					<span class="d-none d-md-inline ml-1">ShadowSteps</span>
 				</div>
-		</a>
+			</a>
 		{% endif %}
 
-		<form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex my-auto ml-4">
-			<div class="input-group input-group-seamless ml-4">
+		<form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex my-auto ">
+			<div class="input-group input-group-seamless ml-3">
 				<div class="input-group-prepend">
 					<div class="input-group-text">
 						<i class="fas fa-search"></i>
@@ -23,7 +23,7 @@
 		</form>
 		<ul class="navbar-nav flex-row my-auto">
 			{% if request.user.is_authenticated %}
-			<li class="nav-item border-right border-left dropdown notifications">
+			<li class="nav-item dropdown notifications">
 				<a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<div class="nav-link-icon__wrapper">
 						<i class="material-icons">&#xE7F4;</i>

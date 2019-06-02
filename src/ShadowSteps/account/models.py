@@ -2,12 +2,8 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from account.choices import GENDER_CHOICES, LEVEL_CHOICES, LANGUAGE_CHOICES, FRAMEWORK_CHOICES, PLATFORM_CHOICES
 
-
-GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-)
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -46,8 +42,34 @@ class Profile(models.Model):
     pg_year = models.CharField(max_length=4, blank=True)
     pg_cgpa = models.CharField(max_length=5, blank=True)
 
+
+
     def __str__(self):
         return self.user.username
+
+class UserLanguage(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="languages")
+    language = models.CharField(max_length=3, choices=LANGUAGE_CHOICES, blank=True)
+    level = models.CharField(max_length=1, choices=LEVEL_CHOICES, blank=True)
+
+    def __str__(self):
+        return self.user.username + " - " + self.language + " - " + self.level
+
+class UserFramework(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="frameworks")
+    framework = models.CharField(max_length=3, choices=FRAMEWORK_CHOICES, blank=True)
+    level = models.CharField(max_length=1, choices=LEVEL_CHOICES, blank=True)
+
+    def __str__(self):
+        return self.user.username + " - " + self.framework + " - " + self.level
+    
+class UserPlatform(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="platforms")
+    platform = models.CharField(max_length=3, choices=PLATFORM_CHOICES, blank=True)
+    level = models.CharField(max_length=1, choices=LEVEL_CHOICES, blank=True)
+
+    def __str__(self):
+        return self.user.username + " - " + self.platform + " - " + self.level
 
 @receiver(post_save, sender=User)
 def Post_Save_User(sender, instance, created, *args, **kwargs):

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid" style="min-height: 100%; margin-bottom: -70px;">
       <div class="row">
         <!-- Main Sidebar -->
         <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
@@ -51,7 +51,7 @@
               <li class="nav-item">
                 <a class="nav-link " data-toggle="tab" href="#account">
                   <i class="material-icons">person</i>
-                  <span>Linked Accounts</span>
+                  <span>Account</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -321,7 +321,95 @@
                 <!-- End Page Header -->
                 <!-- Default Light Table -->
                 <div class="row">
-                  some
+                  <div class="col-lg-10 offset-lg-1">
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Languages</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                          <div class="form-row">
+                              {% for l in languages %}
+                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ l.get_language_display }} (X)</button>
+                              {% endfor %}
+                          </div>
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="feFirstName">Language</label>
+                              {{ lng_form.language }}</div>
+                            <div class="form-group col-md-6">
+                              <label for="feLastName">Level</label>
+                              {{ lng_form.level }}</div>
+                          </div>
+                          <div class="text-center">
+                          
+                            <button type="submit"  name="update-language" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Frameworks</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                          <div class="form-row">
+                              {% for f in frameworks %}
+                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ f.get_framework_display }} (X)</button>
+                              {% endfor %}
+                          </div>
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="feFirstName">Framework</label>
+                              {{ fw_form.framework }}</div>
+                            <div class="form-group col-md-6">
+                              <label for="feLastName">Level</label>
+                              {{ fw_form.level }}</div>
+                          </div>
+                          <div class="text-center">
+                          
+                            <button type="submit"  name="update-framework" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Platforms/IDEs</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                          <div class="form-row">
+                              {% for p in platforms %}
+                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ p.get_platform_display }} (X)</button>
+                              {% endfor %}
+                          </div>
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="feFirstName">Platform/IDE</label>
+                              {{ pf_form.platform }}</div>
+                            <div class="form-group col-md-6">
+                              <label for="feLastName">Level</label>
+                              {{ pf_form.level }}</div>
+                          </div>
+                          <div class="text-center">
+                          
+                            <button type="submit"  name="update-platform" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>                
+                  </div>
                 </div>
                 <!-- End Default Light Table -->
               </div>
@@ -336,7 +424,37 @@
                 <!-- End Page Header -->
                 <!-- Default Light Table -->
                 <div class="row">
-                  some
+                  <div class="col-lg-10 offset-lg-1">
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Linked Accounts</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                            <button type="submit" name="update-language" class="mb-2 btn btn-sm btn-outline-primary mr-1">Connect Facebook</button>
+                        </li>
+                        <li class="list-group-item p-3">
+                            <button type="submit" name="update-language" class="mb-2 btn btn-sm btn-outline-primary mr-1">Connect Github</button>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Account Deactivate</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <button type="submit" class="mb-2 btn btn-md btn-danger mr-1" name="deactivate-account">Deactivate My Account</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>
+              
+                  </div>
                 </div>
                 <!-- End Default Light Table -->
               </div>
@@ -348,14 +466,43 @@
                     <h3 class="page-title">Password</h3>
                   </div>
                 </div>
-                <!-- End Page Header -->
                 <!-- Default Light Table -->
                 <div class="row">
-                  some
+                  <div class="col-lg-6 offset-lg-3">
+                    <div class="card card-small mb-4">
+                      <div class="card-header border-bottom">
+                        <h4 class="m-0">Password Reset</h4>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                        <form action="" method="post">
+                        {% csrf_token %}
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label for="feFirstName">Current Password</label>
+                              {{ hs_form.high_school }}</div>
+                            <div class="form-group col-md-12">
+                              <label for="feLastName">New Password</label>
+                              {{ hs_form.hs_year }}</div>
+                            <div class="form-group col-md-12">
+                              <label for="feLastName">Confirm New Password</label>
+                              {{ hs_form.hs_percentage }}</div>
+                          </div>
+                          <div class="text-center">
+                            <button type="submit"  name="update-password" class="btn btn-accent">Reset Password</button>
+                          </div>
+                        </form>
+                        </li>
+                      </ul>
+                    </div>
+
+            
+                  </div>
                 </div>
                 <!-- End Default Light Table -->
               </div>
             </div>
+            
           </div>
           {% include "footer.html" %}
         </main>

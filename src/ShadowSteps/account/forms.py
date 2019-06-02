@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, UserLanguage, UserFramework, UserPlatform
 import datetime
+from account.choices import GENDER_CHOICES, LEVEL_CHOICES, LANGUAGE_CHOICES, FRAMEWORK_CHOICES, PLATFORM_CHOICES
 
 class SignUpForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(
@@ -118,10 +119,7 @@ class BioSettingForm(forms.ModelForm):
         )
 
 class PersonalProfileSettingForm(forms.ModelForm):
-    GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-    )
+
     dob = forms.DateField(widget=forms.SelectDateWidget(
         years=range(1980, datetime.date.today().year+1),
         attrs={
@@ -308,3 +306,97 @@ class PostGraduationSettingForm(forms.ModelForm):
     class Meta:
         model=Profile
         fields=("pg_college", "pg_degree", "pg_branch", "pg_year", "pg_cgpa")
+
+class LanguageSettingForm(forms.ModelForm):
+    language = forms.ChoiceField(
+        choices=LANGUAGE_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
+    level = forms.ChoiceField(
+        choices=LEVEL_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
+    class Meta:
+        model = UserLanguage
+        fields = ('language', 'level')
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        user = cleaned_data.get('user')
+        users = UserLanguage.objects.filter(user=user)
+        language = cleaned_data.get('language')
+        level = cleaned_data.get('level')
+        for u in users:
+            if u.language == language and u.level == level:
+                raise ValidationError()
+        
+class FrameworkSettingForm(forms.ModelForm):
+    framework = forms.ChoiceField(
+        choices=FRAMEWORK_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
+    level = forms.ChoiceField(
+        choices=LEVEL_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
+    class Meta:
+        model = UserFramework
+        fields = ('framework', 'level')
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        user = cleaned_data.get('user')
+        users = UserFramework.objects.filter(user=user)
+        framework = cleaned_data.get('framework')
+        level = cleaned_data.get('level')
+        for u in users:
+            if u.framework == framework and u.level == level:
+                raise ValidationError()
+
+class PlatformSettingForm(forms.ModelForm):
+    platform = forms.ChoiceField(
+        choices=PLATFORM_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
+    level = forms.ChoiceField(
+        choices=LEVEL_CHOICES,
+        widget=forms.Select(
+        attrs={
+            'class':"form-control",
+            'id':"form1-gender",
+        }
+    ))
+    class Meta:
+        model = UserPlatform
+        fields = ('platform', 'level')
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        user = cleaned_data.get('user')
+        users = UserPlatform.objects.filter(user=user)
+        platform = cleaned_data.get('platform')
+        level = cleaned_data.get('level')
+        for u in users:
+            if u.platform == platform and u.level == level:
+                raise ValidationError()
+    

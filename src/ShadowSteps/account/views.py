@@ -1,19 +1,30 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
-from account.models import Profile
+from account.models import Profile, UserLanguage, UserFramework, UserPlatform
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from account.forms import SignInForm, SignUpForm, AvatarUploadForm, BioSettingForm, PersonalProfileSettingForm, PersonalUserSettingForm, HighSchoolSettingForm, GraduationSettingForm, PostGraduationSettingForm
+from account.forms import (
+    SignInForm, SignUpForm, AvatarUploadForm, 
+    BioSettingForm, PersonalProfileSettingForm, 
+    PersonalUserSettingForm, HighSchoolSettingForm, 
+    GraduationSettingForm, PostGraduationSettingForm,
+    LanguageSettingForm, FrameworkSettingForm,
+    PlatformSettingForm,)
 from django.http import HttpResponseRedirect
 
 # Create your views here.
 User = get_user_model()
 
+@login_required(login_url="account:signin")
 def profileView(request, slug):
     user = User.objects.filter(username__iexact=slug).first()
     
     context={
         'user': user,
         'navbar': True,
+        'languages': UserLanguage.objects.filter(user=request.user),
+        'frameworks': UserFramework.objects.filter(user=request.user),
+        'platforms': UserPlatform.objects.filter(user=request.user),
     }
     if not request.user.is_authenticated:
         return redirect("account:signin")       
@@ -57,6 +68,7 @@ def signOutView(request):
     logout(request)
     return redirect("account:signin")
 
+@login_required(login_url="account:signin")
 def settingView(request):
     if(request.method == "POST"):
         if 'upload-avatar' in request.POST:
@@ -142,7 +154,50 @@ def settingView(request):
                 profile.save()
                 return redirect("account:setting")
         else:
-            pg_form= PostGraduationSettingForm(instance=request.user.profile)           
+            pg_form= PostGraduationSettingForm(instance=request.user.profile)   
+
+        if 'update-language' in request.POST:
+            lng_form = LanguageSettingForm(request.POST)
+            if lng_form.is_valid():
+                user_lng = UserLanguage()
+                user_lng.user = request.user
+                user_lng.language = lng_form.cleaned_data['language']
+                user_lng.level = lng_form.cleaned_data['level']
+                user_lng.save()
+                return redirect("account:setting")
+        else:
+            lng_form = LanguageSettingForm()
+
+        if 'update-framework' in request.POST:
+            fw_form = FrameworkSettingForm(request.POST)
+            if fw_form.is_valid():
+                user_fw = UserFramework()
+                user_fw.user = request.user
+                user_fw.framework = fw_form.cleaned_data['framework']
+                user_fw.level = fw_form.cleaned_data['level']
+                user_fw.save()
+                return redirect("account:setting")
+        else:
+            fw_form = FrameworkSettingForm()
+        
+        if 'update-platform' in request.POST:
+            pf_form = PlatformSettingForm(request.POST)
+            if pf_form.is_valid():
+                user_pf = UserPlatform()
+                user_pf.user = request.user
+                user_pf.platform = pf_form.cleaned_data['platform']
+                user_pf.level = pf_form.cleaned_data['level']
+                user_pf.save()
+                return redirect("account:setting")
+        else:
+            pf_form = PlatformSettingForm()
+        
+        if 'deactivate-account' in request.POST:
+            user = request.user.username
+            user.is_active = False
+            user.save()
+            logout(request)
+            return redirect("account:setting")
 
 
     else:
@@ -152,7 +207,10 @@ def settingView(request):
         personal_user_form = PersonalUserSettingForm(instance=request.user)
         hs_form= HighSchoolSettingForm(instance=request.user.profile)
         g_form= GraduationSettingForm(instance=request.user.profile)
-        pg_form= PostGraduationSettingForm(instance=request.user.profile)           
+        pg_form= PostGraduationSettingForm(instance=request.user.profile)   
+        lng_form = LanguageSettingForm()   
+        fw_form = FrameworkSettingForm() 
+        pf_form = PlatformSettingForm()    
 
 
     context = {
@@ -164,6 +222,12 @@ def settingView(request):
         'hs_form':hs_form,
         'g_form':g_form,
         'pg_form':pg_form,
+        'lng_form':lng_form,
+        'fw_form':fw_form,
+        'pf_form':pf_form,
+        'languages': UserLanguage.objects.filter(user=request.user),
+        'frameworks': UserFramework.objects.filter(user=request.user),
+        'platforms': UserPlatform.objects.filter(user=request.user),
     }
 
     return render(request, "account/settings.html", context)
