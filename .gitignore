@@ -1,6 +1,7 @@
 .DS_Store
 
 Include/
+bin/
 Scripts/
 tcl/
 pip-selfcheck.json
