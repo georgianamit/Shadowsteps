@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/setting.css' %}">
+{% endblock css %}
 
 {% block content %}
     <div class="container-fluid" style="min-height: 100%; margin-bottom: -70px;">
@@ -82,12 +85,16 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="card card-small mb-4 pt-3 text-center">
-                        <div class="mb-3 mx-auto">
-                          <img class="rounded-circle" src=" {{request.user.profile.avatar.url}} " alt="User Avatar" width="200" height="200"> </div>
+                        <div class="mb-3">
+                          {% if request.user.profile.avatar %}
+                            <img class="rounded-circle" src="{{request.user.profile.avatar.url}}" alt="User Avatar" width="200" height="200"> </div>
+                          {% else %}
+                            <img class="rounded-circle" src="/media/default-avatar.png" alt="User Avatar" width="200" height="200"> </div>
+                          {% endif %}
                           <form method="post" action="" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ image_form.avatar }}
-                            <input type="submit" name="upload-avatar" value="Upload">
+                              {% csrf_token %}
+                              {{ image_form.avatar }}
+                              <button id="browse" type="submit" class="btn-sm btn-primary" name="upload-avatar">Upload <i class="fa fa-upload" aria-hidden="true"></i></button>
                           </form>
                     </div>
                   </div>
@@ -163,14 +170,15 @@
                                   <div class="form-group col-md-6">
                                     <label for="feEmailAddress">Gender</label>
                                     <div class="form-row">
-                                      <div class="form-group col-md-6">
+                                      <div class="col-md-6">
                                         {{ personal_profile_form.gender }}
-                                      </div>                                     
+                                      </div>
+                                                                         
                                     </div>                                    
-                                  </div>                                
+                                  </div>                              
                                   <div class="form-group col-md-6">
                                     <label for="feInputState">Date Of Birth</label>
-                                    <div class="form-row">
+                                    <div>
                                      {{ personal_profile_form.dob}}
                                     </div>
                                   </div>
@@ -327,27 +335,27 @@
                         <h4 class="m-0">Languages</h4>
                       </div>
                       <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-3">
-                          <div class="form-row">
-                              {% for l in languages %}
-                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ l.get_language_display }} (X)</button>
-                              {% endfor %}
-                          </div>
+                        <li class="list-group-item p-3 ">
                         <form action="" method="post">
                         {% csrf_token %}
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
+                          <div id="save-language" class="form-row">
+                            <div class="form-group col-md-4">
                               <label for="feFirstName">Language</label>
                               {{ lng_form.language }}</div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                               <label for="feLastName">Level</label>
                               {{ lng_form.level }}</div>
-                          </div>
-                          <div class="text-center">
-                          
-                            <button type="submit"  name="update-language" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                            <div class="text-center form-group col-md-1 mt-4 ">
+                              <button type="submit" id="sv-lang-btn"  name="update-language" class="mb-2 btn btn-sm btn-outline-primary mr-1 mt-1">Add</button>
+                            </div>
                           </div>
                         </form>
+                          <div id="list-languages" class="form-row">
+                              {% comment %} {% for l in languages %}
+                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ l.get_language_display }} (X)</button>
+                              {% endfor %} {% endcomment %}
+
+                          </div>             
                         </li>
                       </ul>
                     </div>
@@ -357,26 +365,23 @@
                       </div>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
-                          <div class="form-row">
-                              {% for f in frameworks %}
-                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ f.get_framework_display }} (X)</button>
-                              {% endfor %}
-                          </div>
                         <form action="" method="post">
                         {% csrf_token %}
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
+                          <div class="form-row" id="save-framework">
+                            <div class="form-group col-md-4">
                               <label for="feFirstName">Framework</label>
                               {{ fw_form.framework }}</div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                               <label for="feLastName">Level</label>
                               {{ fw_form.level }}</div>
-                          </div>
-                          <div class="text-center">
-                          
-                            <button type="submit"  name="update-framework" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                            <div class="text-center form-group col-md-1 mt-4">
+                              <button type="submit" id="sv-fw-btn"  name="update-framework" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                            </div>
                           </div>
                         </form>
+                          <div class="form-row" id= "list-frameworks">
+
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -386,26 +391,24 @@
                       </div>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item p-3">
-                          <div class="form-row">
-                              {% for p in platforms %}
-                                <button type="button" class="mb-2 btn btn-sm btn-info mr-1">{{ p.get_platform_display }} (X)</button>
-                              {% endfor %}
-                          </div>
                         <form action="" method="post">
                         {% csrf_token %}
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
+                          <div class="form-row" id="save-platform">
+                            <div class="form-group col-md-4">
                               <label for="feFirstName">Platform/IDE</label>
                               {{ pf_form.platform }}</div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                               <label for="feLastName">Level</label>
                               {{ pf_form.level }}</div>
+                            <div class="text-center form-group col-md-1 mt-4">
+                              <button type="submit" id="sv-pf-btn"  name="update-platform" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
+                            </div>
                           </div>
-                          <div class="text-center">
-                          
-                            <button type="submit"  name="update-platform" class="mb-2 btn btn-sm btn-outline-primary mr-1">Add</button>
-                          </div>
+
                         </form>
+                          <div class="form-row" id="list-platforms">
+
+                          </div>
                         </li>
                       </ul>
                     </div>                
@@ -501,8 +504,7 @@
                 </div>
                 <!-- End Default Light Table -->
               </div>
-            </div>
-            
+            </div>            
           </div>
           {% include "footer.html" %}
         </main>
@@ -511,11 +513,5 @@
 {% endblock content %}
 
 {% block js %}
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.custom-file-input input[type="file"]').change(function(e){
-            $(this).siblings('input[type="text"]').val(e.target.files[0].name);
-        });
-    });
-</script>
+  <script src="{% static 'js/setting.js' %}"></script>
 {% endblock js %}

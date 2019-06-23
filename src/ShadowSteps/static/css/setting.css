@@ -1,0 +1,22 @@
+.cancel-button {
+    display: inline;
+    width: 50%;
+    max-width: 30px;
+    min-width: 30px;
+    background: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.1s ease-out;
+}
+
+.cancel-button:hover,
+.cancel-button:focus,
+.cancel-button:active {
+    background: #fff;
+    color: rgb(255, 0, 0);
+    transition: all 0.1s ease-in;
+}

@@ -19,72 +19,120 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function prepareLangBtn(data) {
-    return `<button type="button" data-id="${data.id}" class="mb-2 btn btn-sm btn-info mr-1 langDeleteBtn"> ${data.language} &nbsp;<span style="font-size: 14px; color: Tomato;"><i class="fas fa-times " ></i></button>`
-
+function prepareBtn(data, deleteBtnClass) {
+    // return `<a type="button" style="font-size: 18px; color: white;" class="mb-2 btn btn-sm btn-info mr-1"> ${data.language} &nbsp;<span style="font-size: 14px; color: Tomato;"><button data-id="${data.id}" class="fas fa-times cancel-button langDeleteBtn" ></button></a>`
+    if ('language' in data) {
+        txt = data.language
+    } else
+    if ('framework' in data) {
+        txt = data.framework
+    } else
+    if ('platform' in data) {
+        txt = data.platform
+    }
+    return `<a type="button" style="font-size: 16px; color: white;" class="mb-2 btn btn-sm btn-info mr-1"> ${txt} &nbsp;<button type="button" data-id="${data.id}" class="close ${deleteBtnClass}" aria-label="Close"> <span style="font-size: 24px; color: Tomato; backgroud-color: white;">&times;</span></button></a>`
 }
 
-function deleteLang(elm) {
-    langID = $(elm).data('id')
+function deleteElement(elm, uri) {
+    ID = $(elm).data('id')
     $.ajax({
-        url: `/api/language/${langID}/`,
+        url: `/api/${uri}/${ID}/`,
         type: 'delete',
         dataType: 'json',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
         },
         success: function (data) {
-            console.log(getCookie("csrftoken"))
-            $(elm).remove()
+            $(elm).parent().remove()
         }
     });
 }
 
-function addDeleteEvent() {
-    $('.langDeleteBtn').each((i, elm) => {
+function addDeleteEvent(deleteBtnClass, uri) {
+    $('.' + deleteBtnClass).each((i, elm) => {
         $(elm).on("click", (e) => {
             console.log(e)
-            deleteLang($(elm))
+            deleteElement($(elm), uri)
         })
     })
 
 }
 
-function loadUserLanguages() {
+function loadProfSetting(listUri, editUri, listID, deleteBtnClass) {
     $.ajax({
-        url: '/api/languages/',
+        url: `/api/${listUri}/`,
         type: 'get',
         datatype: 'Json',
         success: function (data) {
-            let langBtn = ''
+            let btn = ''
             data.forEach(l => {
-                langBtn += prepareLangBtn(l);
+                btn += prepareBtn(l, deleteBtnClass);
 
             });
-            $('#sv-languages').append(langBtn)
-            addDeleteEvent()
+            $('#' + listID).append(btn)
+            addDeleteEvent(deleteBtnClass, editUri)
         }
 
     })
 }
 
-$('#sv-btn').click(function (event) {
+$('#sv-lang-btn').click(function (event) {
     event.preventDefault()
     $.ajax({
         url: '/api/languages/',
         type: 'post',
         data: {
             'language': $('#language').val(),
-            'level': $('#level').val(),
+            'level': $('#lang-level').val(),
         },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
         },
         success: function (data) {
-            $('#sv-languages').append(prepareLangBtn(data))
-            addDeleteEvent()
+            $('#list-languages').append(prepareBtn(data, 'langDeleteBtn'))
+            addDeleteEvent('langDeleteBtn', 'language')
         }
     })
 })
 
-loadUserLanguages();
+$('#sv-fw-btn').click(function (event) {
+    event.preventDefault()
+    $.ajax({
+        url: '/api/frameworks/',
+        type: 'post',
+        data: {
+            'framework': $('#framework').val(),
+            'level': $('#fw-level').val(),
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+        },
+        success: function (data) {
+            $('#list-frameworks').append(prepareBtn(data, 'fwDeleteBtn'))
+            addDeleteEvent('fwDeleteBtn', 'framework')
+        }
+    })
+})
+
+$('#sv-pf-btn').click(function (event) {
+    event.preventDefault()
+    $.ajax({
+        url: '/api/platforms/',
+        type: 'post',
+        data: {
+            'platform': $('#platform').val(),
+            'level': $('#pf-level').val(),
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+        },
+        success: function (data) {
+            $('#list-platforms').append(prepareBtn(data, 'pfDeleteBtn'))
+            addDeleteEvent('pfDeleteBtn', 'platform')
+        }
+    })
+})
+
+loadProfSetting('languages', 'language', 'list-languages', 'langDeleteBtn')
+loadProfSetting('frameworks', 'framework', 'list-frameworks', 'fwDeleteBtn')
+loadProfSetting('platforms', 'platform', 'list-platforms', 'pfDeleteBtn')
