@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="main-navbar sticky-top bg-white">
 	<!-- Main Navbar -->
 	<nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
@@ -21,6 +22,7 @@
 				<input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> 
 			</div>
 		</form>
+		
 		<ul class="navbar-nav flex-row my-auto">
 			{% if request.user.is_authenticated %}
 			<li class="nav-item dropdown notifications">
@@ -60,7 +62,11 @@
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-					<img class="user-avatar rounded-circle mr-2" src="{{request.user.profile.avatar.url}}" alt="User Avatar" width="40" height="40">
+					{% if request.user.profile.avatar %}
+						<img class="user-avatar rounded-circle mr-2" src="{{request.user.profile.avatar.url}}" alt="User Avatar" width="40" height="40">
+					{% else %}
+						<img class="user-avatar rounded-circle mr-2" src="/media/default-avatar.png" alt="User Avatar" width="40" height="40">
+					{% endif %}
 					<span class="d-none d-md-inline-block"> {{request.user.username}} </span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-small">

@@ -1,16 +1,4 @@
-.custom-file-input{
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-}
-.custom-file-input input[type="file"]{
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  zoom: 1;  /* Fix for IE7 */
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999;
+.dob-horizontal {
+    display: inline-block;
+    width: 30%;
 }
